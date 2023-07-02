@@ -19,12 +19,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
+        uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: /generic/gm
-          replace: /Test/
-          regex: true
-          include: "README.md"
+          find: "generic"
+          replace: "teste"
+          regex: false
+          # include: "README.md"
           
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

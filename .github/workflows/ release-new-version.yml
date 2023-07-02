@@ -20,8 +20,9 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "Ferreira"
-          replace: "FERREIRA"
+          replace: "TEST"
           regex: false
+          include: "**/*.yaml"
       
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

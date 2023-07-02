@@ -25,6 +25,18 @@ blueprint:
           min: 0
           max: 3600
           unit_of_measurement: seconds
+    night_after_time:
+      name: Night after
+      description: Night after
+      default: 22:00:00
+      selector:
+        time:
+    night_before_before:
+      name: Night before
+      description: Night before
+      default: 06:00:00
+      selector:
+        time:
 
 # If motion is detected within the delay,
 # we restart the script.
@@ -43,8 +55,8 @@ action:
     if:
       - alias: It Is Between 10pm And 6am
         condition: time
-        after: "22:00:00"
-        before: "06:00:00"
+        after: !input night_after_time
+        before: !input night_before_before
     then:
       - alias: Turn On The Lights at 1% (Yellow)
         service: light.turn_on

@@ -11,8 +11,8 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
+    permissions:
+      contents: write
     steps:
 
       - name: Checking out

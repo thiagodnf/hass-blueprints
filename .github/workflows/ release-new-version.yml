@@ -21,9 +21,9 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "Ferreira"
-          replace: "TEST"
-          regex: false
+          find: /Ferreira/
+          replace: /TEST/
+          regex: true
           include: "src/**"
           
       - name: Push changes

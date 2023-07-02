@@ -23,6 +23,8 @@ jobs:
         with:
           find: "generic"
           replace: "teste"
+          include: |
+            **/README.md
           
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

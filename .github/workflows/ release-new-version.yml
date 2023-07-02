@@ -24,7 +24,7 @@ jobs:
           find: "Ferreira"
           replace: "TEST"
           regex: false
-          include: "src/**"
+          # include: "src/**"
           
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

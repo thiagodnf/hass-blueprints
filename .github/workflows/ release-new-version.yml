@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: "Release New Version"
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+      - name: Checking out
+        uses: actions/checkout@v3
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "Ferreira"
+          replace: "FERREIRA"
+          regex: true
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      # - id: releaser
+      #   name: Verifying if a new version is needed
+      #   uses: thiagodnf/new-version-decider@v0.0.5
+      #   with:
+      #     loader: nodejs
+      #     configurationFile: ./package.json
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Creating a new release on Github
+      #   uses: softprops/action-gh-release@v1
+      #   if: steps.releaser.outputs.newVersion == 'true'
+      #   with:
+      #     name: ${{ steps.releaser.outputs.currentVersion }}
+      #     tag_name: v${{steps.releaser.outputs.currentVersion}}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

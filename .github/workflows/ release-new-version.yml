@@ -21,8 +21,8 @@ jobs:
         with:
           find: "Ferreira"
           replace: "TEST"
-          regex: false
-          include: "**/*.yaml"
+          regex: true
+          include: "*.yaml"
       
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

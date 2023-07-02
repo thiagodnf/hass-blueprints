@@ -22,7 +22,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: /generic/gm
-          replace: "TEST"
+          replace: /Test/
           regex: true
           include: "README.md"
           

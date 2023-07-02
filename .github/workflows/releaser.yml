@@ -21,10 +21,10 @@ jobs:
       - name: Find and Replace
         uses: thiagodnf/string-replacer@v1.0.2
         with:
-          find: "generic"
-          replace: "teste"
+          find: "@version"
+          replace: "v1"
           include: |
-            **/README.md
+            blueprints/**/*.yaml
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

@@ -27,14 +27,14 @@ blueprint:
           unit_of_measurement: seconds
     night_after_time:
       name: Night after
-      description: Night after
-      default: 22:00:00
+      description: Time to turn the light yellow
+      default: "22:00:00"
       selector:
         time:
     night_before_before:
       name: Night before
-      description: Night before
-      default: 06:00:00
+      description: Time to turn the light white
+      default: "06:00:00"
       selector:
         time:
 

@@ -1,5 +1,5 @@
 blueprint:
-  name: THG Motion Light
+  name: Motion-activated Lights
   description: Turn on a light when motion is detected.
   domain: automation
   author: Thiago Ferreira
@@ -41,7 +41,7 @@ action:
 
   - if:
       - condition: time
-        after: "22:00:00"
+        after: "18:00:00"
         before: "06:00:00"
     then:
       - alias: Turn On The Lights at 1% (Yellow)

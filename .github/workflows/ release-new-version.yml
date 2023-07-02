@@ -27,10 +27,7 @@ jobs:
           # include: "src/**"
           
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+        uses: stefanzweifel/git-auto-commit-action@v4
 
       # - id: releaser
       #   name: Verifying if a new version is needed

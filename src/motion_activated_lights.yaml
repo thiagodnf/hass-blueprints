@@ -41,7 +41,7 @@ action:
 
   - if:
       - condition: time
-        after: "18:00:00"
+        after: "22:00:00"
         before: "06:00:00"
     then:
       - alias: Turn On The Lights at 1% (Yellow)

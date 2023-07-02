@@ -31,7 +31,7 @@ blueprint:
       default: "22:00:00"
       selector:
         time:
-    night_before_before:
+    night_before_time:
       name: Night before
       description: Time to turn the light white
       default: "06:00:00"
@@ -56,7 +56,7 @@ action:
       - alias: It Is Between 10pm And 6am
         condition: time
         after: !input night_after_time
-        before: !input night_before_before
+        before: !input night_before_time
     then:
       - alias: Turn On The Lights at 1% (Yellow)
         service: light.turn_on

@@ -21,7 +21,7 @@ jobs:
         with:
           find: "Ferreira"
           replace: "FERREIRA"
-          regex: true
+          regex: false
       
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

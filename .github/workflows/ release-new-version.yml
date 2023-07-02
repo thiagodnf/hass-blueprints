@@ -21,7 +21,7 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "Ferreira"
+          find: "generic"
           replace: "TEST"
           regex: false
           # include: "src/**"

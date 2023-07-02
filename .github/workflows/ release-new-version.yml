@@ -9,10 +9,10 @@ name: "Release New Version"
 on: [push, pull_request]
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    # permissions:
+    #   contents: write
     steps:
 
       - name: Checking out

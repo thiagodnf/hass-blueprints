@@ -1,6 +1,7 @@
 blueprint:
   name: Motion-activated Lights
-  description: Turn on a light when motion is detected.
+  description: Turn on a light when motion is detected
+  source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/src/motion_activated_lights.yaml
   domain: automation
   author: Thiago Ferreira
   input:

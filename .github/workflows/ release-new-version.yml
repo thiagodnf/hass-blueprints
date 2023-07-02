@@ -23,8 +23,8 @@ jobs:
         with:
           find: /generic/gm
           replace: "TEST"
-          regex: false
-          # include: "src/**"
+          regex: true
+          include: "README.md"
           
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0

@@ -27,8 +27,8 @@ jobs:
             blueprints/**/*.yaml
           
       - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: ${{ github.ref }}
+        # with:
+        #   branch: ${{ github.ref }}
 
       # - name: Push changes
       #   uses: ad-m/github-push-action@v0.6.0

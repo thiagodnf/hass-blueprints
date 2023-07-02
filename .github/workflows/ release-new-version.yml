@@ -23,7 +23,7 @@ jobs:
         with:
           find: "Ferreira"
           replace: "TEST"
-          regex: true
+          regex: false
           include: "src/**"
           
       - name: Push changes

@@ -1,7 +1,7 @@
 {
     "name": "hass-blueprints",
     "description": "Generic blueprints for HomeAssistant covering a wide range of different use cases",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "author": "Thiago Ferreira",
     "license": "MIT"
 }

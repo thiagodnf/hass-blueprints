@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: "Release"
+
+on:
+  pull_request:
+  push:
+    paths:
+      - 'package.json'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - id: version-decider
+        name: Version Decider
+        uses: thiagodnf/version-decider@v1.0.7
+        with:
+          file: ./package.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: String Replacer
+        uses: thiagodnf/string-replacer@v1.0.2
+        with:
+          find: ${{ format('(v{0})', steps.version-decider.outputs.release) }}
+          replace: ${{ format('(v{0})', steps.version-decider.outputs.version) }}
+          include: |
+            blueprints/**/*.yaml
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+
+      - name: Creating a new release on Github
+        uses: softprops/action-gh-release@v1
+        if: steps.version-decider.outputs.new
+        with:
+          name: v${{ steps.version-decider.outputs.version }}
+          tag_name: v${{ steps.version-decider.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

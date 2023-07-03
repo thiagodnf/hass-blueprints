@@ -1,7 +1,7 @@
 blueprint:
-  name: Motion-activated Lights (v0.0.5)
-  description: Turn on a light when motion is detected
-  source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/blueprints/automation/motion_activated_lights.yaml
+  name: Motion-activated Lights With Keep On (v0.0.5)
+  description: Turn on a light when motion is detected but, optionally, keep them on
+  source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/blueprints/automation/motion_activated_lights_with_keep_on.yaml
   domain: automation
   author: Thiago Ferreira
   input:
@@ -38,6 +38,11 @@ blueprint:
       default: "06:00:00"
       selector:
         time:
+    keep_lights_input_button:
+      name: Keep Lights On
+      selector:
+        entity:
+          domain: input_boolean
 
 # If motion is detected within the delay,
 # we restart the script.
@@ -79,6 +84,13 @@ action:
       entity_id: !input motion_entity
       from: "on"
       to: "off"
+
+  - if:
+      - condition: state
+        entity_id: !input keep_lights_input_button
+        state: "on"
+    then:
+      - stop: "" 
   
   - alias: "Wait the number of seconds that has been set"
     delay: !input no_motion_wait

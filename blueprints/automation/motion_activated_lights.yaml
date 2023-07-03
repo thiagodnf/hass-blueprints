@@ -39,11 +39,14 @@ blueprint:
       selector:
         time:
     keep_lights_input_button:
-      name: Keep Lights On (Optional)
+      name: (Optional) Keep Lights On
       default:
       selector:
         entity:
           domain: input_boolean
+
+variables:
+  keep_lights_input_button: !input keep_lights_input_button
 
 # If motion is detected within the delay,
 # we restart the script.
@@ -86,12 +89,15 @@ action:
       from: "on"
       to: "off"
 
-  - if:
-      - condition: state
-        entity_id: !input keep_lights_input_button
-        state: "on"
-    then:
-      - stop: ""
+  - choose:
+      - conditions: "{{ keep_lights_input_button }}"
+        sequence:
+          - if:
+              - condition: state
+                entity_id: !input keep_lights_input_button
+                state: "on"
+            then:
+              - stop: ""
   
   - alias: "Wait the number of seconds that has been set"
     delay: !input no_motion_wait

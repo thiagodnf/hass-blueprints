@@ -1,5 +1,5 @@
 blueprint:
-  name: Motion-activated Lights With Keep On (v0.0.5)
+  name: Motion-activated Lights With Keep On (v0.0.6)
   description: Turn on a light when motion is detected but, optionally, keep them on
   source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/blueprints/automation/motion_activated_lights_with_keep_on.yaml
   domain: automation

@@ -10,7 +10,9 @@ blueprint:
       selector:
         entity:
           domain: binary_sensor
-          device_class: motion
+          device_class: 
+            - motion
+            - occupancy
     light_target:
       name: Light
       selector:
@@ -38,6 +40,15 @@ blueprint:
       default: "06:00:00"
       selector:
         time:
+    turn_off_transition:
+      name: Turn off Transition
+      description: Transition time while turning off.
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: seconds
 
 # If motion is detected within the delay,
 # we restart the script.
@@ -86,3 +97,5 @@ action:
   - alias: "Turn off the light"
     service: light.turn_off
     target: !input light_target
+    data:
+      transition: !input turn_off_transition

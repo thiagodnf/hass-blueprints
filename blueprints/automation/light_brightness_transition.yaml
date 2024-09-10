@@ -49,7 +49,7 @@ variables:
   step_percentage: {% target_brightness / transition_time %}
   
 action:
-
+ 
   - repeat:
       sequence:
         - action: light.turn_on

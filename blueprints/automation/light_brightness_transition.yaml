@@ -67,5 +67,5 @@ action:
         - condition: state
           entity_id: !input target_lights
           attribute: brightness
-          state: !input target_brightness
+          state: "{{ target_brightness }}"
 

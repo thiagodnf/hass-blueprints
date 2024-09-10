@@ -46,7 +46,7 @@ trigger:
   at: !input trigger_time
 
 variables:
-  step_percentage: {{ target_brightness / transition_time}}
+  step_percentage: {% target_brightness / transition_time %}
   
 action:
 

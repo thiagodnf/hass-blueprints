@@ -60,6 +60,7 @@ action:
           metadata: {}
           data:
             brightness_step_pct: "{{ step_percentage }}"
+            rgb_color: !input target_color
           target:
             entity_id: !input target_lights
         - delay:

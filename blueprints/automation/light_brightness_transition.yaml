@@ -44,7 +44,10 @@ max_exceeded: silent
 trigger:
   platform: time
   at: !input trigger_time
- 
+
+variables:
+  step_percentage: {{ target_brightness / transition_time}}
+  
 action:
 
   - repeat:
@@ -52,7 +55,7 @@ action:
         - action: light.turn_on
           metadata: {}
           data:
-            brightness_step_pct: 1
+            brightness_step_pct: {{ step_percentage }}
           target:
             entity_id: !input target_lights
         - delay:

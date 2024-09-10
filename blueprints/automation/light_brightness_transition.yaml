@@ -11,6 +11,11 @@ blueprint:
       selector:
         entity:
           domain: light
+    target_color:
+      name: Color
+      description: The light color
+      selector:
+        color_rgb:
     target_brightness:
       name: Target Brightness
       description: Set the brightness target used in the loop

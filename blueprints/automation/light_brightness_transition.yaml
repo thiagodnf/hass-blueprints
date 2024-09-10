@@ -43,8 +43,8 @@ trigger:
   platform: time
   at: !input trigger_time
 
-variables:
-  step_percentage: {% target_brightness / transition_time %}
+#variables:
+#  step_percentage: {% target_brightness / transition_time %}
   
 action:
 
@@ -53,7 +53,7 @@ action:
         - action: light.turn_on
           metadata: {}
           data:
-            brightness_step_pct: {{ step_percentage }}
+            brightness_step_pct: {{ target_brightness / transition_time }}
           target:
             entity_id: !input target_lights
         - delay:

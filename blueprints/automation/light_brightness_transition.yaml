@@ -9,9 +9,8 @@ blueprint:
       name: Lights
       description: The lights you want to control
       selector:
-        target:
-          entity:
-            domain: light
+        entity:
+          domain: light
     target_brightness:
       name: Target Brightness
       description: Set the brightness target used in the loop
@@ -56,7 +55,8 @@ action:
           metadata: {}
           data:
             brightness_step_pct: "{{ step_percentage }}"
-          target: !input target_lights
+          target:
+            entity_id: !input target_lights
         - delay:
             hours: 0
             minutes: 0
@@ -64,7 +64,7 @@ action:
             milliseconds: 0
       until:
         - condition: state
-          target: !input target_lights
+          entity_id: !input target_lights
           attribute: brightness
           state: "{{ target_brightness }}"
 

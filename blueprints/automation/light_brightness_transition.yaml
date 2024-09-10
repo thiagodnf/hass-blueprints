@@ -65,7 +65,8 @@ action:
             milliseconds: 0
       until:
         - condition: state
-          entity_id: !input target_lights
+          target:
+            entity_id: !input target_lights
           attribute: brightness
           state: "{{ target_brightness }}"
 

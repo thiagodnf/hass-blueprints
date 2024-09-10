@@ -27,17 +27,17 @@ blueprint:
     trigger_time:
       name: Trigger Time
       description: Time to run this automation
-      default: "22:00:00"
+      default: "06:00:00"
       selector:
         time:
     transition_time:
       name: Transition Time
-      description: Time to turn the lights on
+      description: Time to turn the lights on or off
       default: 0
       selector:
         number:
-          min: 0
-          max: 100000
+          min: 10
+          max: 3600
           unit_of_measurement: seconds
 
 mode: restart

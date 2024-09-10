@@ -1,53 +1,38 @@
 blueprint:
-  name: Motion-activated Lights (v0.0.7)
-  description: Turn on a light when motion is detected
-  source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/blueprints/automation/motion_activated_lights.yaml
+  name: Light Brightness Transition
+  description: Given Brightness Transition for Lights that does not support it
+  source_url: https://github.com/thiagodnf/hass-blueprints/blob/main/blueprints/automation/light_brightness_transition.yaml.yaml
   domain: automation
   author: Thiago Ferreira
   input:
-    motion_entity:
-      name: Motion Sensor
-      selector:
-        entity:
-          domain: binary_sensor
-          device_class: 
-            - motion
-            - occupancy
-    light_target:
-      name: Light
+    target_lights:
+      name: Lights
+      description: The lights you want to control
       selector:
         target:
           entity:
             domain: light
-    no_motion_wait:
-      name: Wait time
-      description: Time to leave the light on after last motion is detected.
-      default: 30
+    target_brightness:
+      name: Target Brightness
+      description: Set the brightness target used in the loop
+      default: 100
       selector:
         number:
           min: 0
-          max: 3600
-          unit_of_measurement: seconds
-    night_after_time:
-      name: Night after
-      description: Time to turn the light yellow
+          max: 100
+    trigger_time:
+      name: Trigger Time
+      description: Time to run this automation
       default: "22:00:00"
       selector:
         time:
-    night_before_time:
-      name: Night before
-      description: Time to turn the light white
-      default: "06:00:00"
-      selector:
-        time:
-    turn_off_transition:
-      name: Turn off Transition
-      description: Transition time while turning off.
+    transition_time:
+      name: Transition Time
+      description: Time to turn the lights on
       default: 0
       selector:
         number:
           min: 0
-          max: 3600
           unit_of_measurement: seconds
 
 # If motion is detected within the delay,
@@ -56,46 +41,27 @@ mode: restart
 max_exceeded: silent
 
 trigger:
-  platform: state
-  entity_id: !input motion_entity
-  from: "off"
-  to: "on"
-
+  platform: time
+  at: !input trigger_time
+ 
 action:
 
-  - alias: Verify If It Is Night
-    if:
-      - alias: It Is Between 10pm And 6am
-        condition: time
-        after: !input night_after_time
-        before: !input night_before_time
-    then:
-      - alias: Turn On The Lights at 1% (Yellow)
-        service: light.turn_on
-        data:
-          color_temp: 500
-          brightness_pct: 1
-        target: !input light_target
-    else:
-      - alias: Turn On The Lights at 100% (White)
-        service: light.turn_on
-        data:
-          color_temp: 233
-          brightness_pct: 100
-        target: !input light_target
+  - repeat:
+      sequence:
+        - action: light.turn_on
+          metadata: {}
+          data:
+            brightness_step_pct: 1
+          target:
+            entity_id: !input target_lights
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 1
+            milliseconds: 0
+      until:
+        - condition: state
+          entity_id: !input target_lights
+          attribute: brightness
+          state: !input target_brightness
 
-  - alias: "Wait until there is no motion from device"
-    wait_for_trigger:
-      platform: state
-      entity_id: !input motion_entity
-      from: "on"
-      to: "off"
-  
-  - alias: "Wait the number of seconds that has been set"
-    delay: !input no_motion_wait
-  
-  - alias: "Turn off the light"
-    service: light.turn_off
-    target: !input light_target
-    data:
-      transition: !input turn_off_transition

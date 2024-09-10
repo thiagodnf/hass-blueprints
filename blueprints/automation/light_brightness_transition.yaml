@@ -22,7 +22,7 @@ blueprint:
       default: 100
       selector:
         number:
-          min: 0
+          min: -100
           max: 100
     trigger_time:
       name: Trigger Time
@@ -51,6 +51,7 @@ variables:
   target_brightness: !input target_brightness
   transition_time: !input transition_time
   step_percentage: "{{ target_brightness / transition_time  }}"
+  going_up: 
   
 action:
  

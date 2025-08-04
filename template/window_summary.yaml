@@ -9,7 +9,7 @@ blueprint:
   input:
     label:
       name: Label
-      description: Label used to relate all window entities
+      description: Used to group all window-related entities
       default: door
       selector:
         text:

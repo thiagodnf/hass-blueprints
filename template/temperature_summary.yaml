@@ -36,7 +36,9 @@ sensor:
           | expand 
           | map(attribute='state')
           | map('float') 
-          | list }}
+          | list 
+          | map('round', round_by)
+          | sort }}
     min: >-
       {{ (state_attr(this.entity_id, 'values') or []) | min | round(round_by)}}
     max: >-

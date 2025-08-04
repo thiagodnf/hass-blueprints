@@ -25,9 +25,9 @@ binary_sensor:
           | map(attribute='name') 
           | list }}
     count: >-
-      {{ state_attr(this.entity_id, 'open_entities') or [] | count }}
+      {{ (state_attr(this.entity_id, 'open_entities') or []) | count }}
     status: >-
-      {% set count = (state_attr(this.entity_id, 'count') or 0 | int) %}
+      {% set count = (state_attr(this.entity_id, 'count') or 0) | int %}
       {{ 'All closed' if count == 0 else count ~ ' open' }}
   state: >-
-    {{ (state_attr(this.entity_id, 'count') or 0 | int) > 0 }}
+    {{ (state_attr(this.entity_id, 'count') or 0) | int > 0 }}

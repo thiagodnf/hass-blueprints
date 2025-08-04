@@ -20,7 +20,7 @@ binary_sensor:
   attributes:
     open_entities: >-
       {{ label_entities(label)  
-          | expand 
+          | expand
           | selectattr('state', 'eq', 'on')
           | map(attribute='name') 
           | list }}

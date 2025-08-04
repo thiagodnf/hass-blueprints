@@ -17,7 +17,7 @@ variables:
   label: !input label
 sensor:
   device_class: humidity
-  unit_of_measurement: %
+  unit_of_measurement: "%"
   attributes:
     values: >-
       {% set entity_ids = label_entities(label)  %}

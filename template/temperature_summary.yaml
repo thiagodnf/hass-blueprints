@@ -1,0 +1,40 @@
+blueprint:
+  name: temperature_summary
+  description: Creates a sensor that summarizes the temperature
+  domain: template
+  source_url: https://github.com/thiagodnf/hass-blueprints/tree/main/template/temperature_summary.yaml
+  author: Thiago Ferreira
+  homeassistant:
+    min_version: 2024.6.0
+  input:
+    label:
+      name: Label
+      description: Label used to relate all temperature entities
+      default: door
+      selector:
+        text:
+variables:
+  label: !input label
+sensor:
+  device_class: temperature
+  unit_of_measurement: °F
+  attributes:
+    values: >-
+      {% set entity_ids = label_entities('temperature')  %}
+      {{ entity_ids  
+          | expand 
+          | map(attribute='state')
+          | map('float') 
+          | list }}
+    min: >-
+      {{ (state_attr(this.entity_id, 'values') or []) | min }}
+    max: >-
+      {{ (state_attr(this.entity_id, 'values') or []) | max }}
+    average: >-
+      {{ (state_attr(this.entity_id, 'values') or []) | average }}
+    range: >-
+      {% set min = (state_attr(this.entity_id, 'min') or 0) | int  %}
+      {% set max = (state_attr(this.entity_id, 'max') or 0) | int  %}
+      {{ min ~ '°F - ' ~ max ~ '°F'}}
+  state: >-
+    {{ (state_attr(this.entity_id, 'average') or 0) | int }}

@@ -1,23 +1,23 @@
 blueprint:
-  name: temperature_summary
-  description: Creates a sensor that summarizes the temperature
+  name: humidity_summary
+  description: Creates a sensor that summarizes the humidity
   domain: template
-  source_url: https://github.com/thiagodnf/hass-blueprints/tree/main/template/temperature_summary.yaml
+  source_url: https://github.com/thiagodnf/hass-blueprints/tree/main/template/humidity_summary.yaml
   author: Thiago Ferreira
   homeassistant:
     min_version: 2024.6.0
   input:
     label:
       name: Label
-      description: Label used to relate all temperature entities
+      description: Label used to relate all humidity entities
       default: door
       selector:
         text:
 variables:
   label: !input label
 sensor:
-  device_class: temperature
-  unit_of_measurement: °F
+  device_class: humidity
+  unit_of_measurement: %
   attributes:
     values: >-
       {% set entity_ids = label_entities(label)  %}

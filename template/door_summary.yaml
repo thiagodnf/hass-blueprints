@@ -1,0 +1,29 @@
+blueprint:
+  name: door_summary
+  description: Creates a binary sensor that summarizes door status, indicating how many doors are open
+  domain: template
+  source_url: https://github.com/thiagodnf/hass-blueprints/tree/main/template/door_summary.yaml
+  input:
+    label:
+      name: Label
+      description: Label used to relate all door entities
+      default: door
+      selector:
+        text:
+variables:
+  label: !input label
+binary_sensor:
+  device_class: door
+  attributes:
+    count: >-
+      {% set entity_ids = label_entities(label)  %}
+      {{ entity_ids  
+          | expand 
+          | selectattr('state', 'eq', 'on') 
+          | list 
+          | count }}
+    status: >-
+      {% set count = (state_attr(this.entity_id, 'count') or 0 | int) %}
+      {{ 'All Closed' if count == 0 else count ~ ' open' }}
+  state: >-
+    {{ (state_attr(this.entity_id, 'count') or 0 | int) > 0 }}

@@ -18,14 +18,14 @@ variables:
 binary_sensor:
   device_class: door
   attributes:
-    open_doors: >-
+    open_entities: >-
       {{ label_entities(label)  
           | expand 
           | selectattr('state', 'eq', 'on')
           | map(attribute='name') 
           | list }}
     count: >-
-      {{ state_attr(this.entity_id, 'open_doors') or [] | count }}
+      {{ state_attr(this.entity_id, 'open_entities') or [] | count }}
     status: >-
       {% set count = (state_attr(this.entity_id, 'count') or 0 | int) %}
       {{ 'All Closed' if count == 0 else count ~ ' open' }}

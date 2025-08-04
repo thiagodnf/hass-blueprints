@@ -46,6 +46,6 @@ sensor:
     range: >-
       {% set min = (state_attr(this.entity_id, 'min') or 0) | round(round_by)%}
       {% set max = (state_attr(this.entity_id, 'max') or 0) | round(round_by)%}
-      {{ min ~ '°F - ' ~ max ~ '°F'}}
+      {{ min ~ '-' ~ max ~ '°'}}
   state: >-
     {{ (state_attr(this.entity_id, 'average') or 0) | round(round_by) }}

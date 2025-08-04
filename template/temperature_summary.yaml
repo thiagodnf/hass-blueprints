@@ -9,12 +9,23 @@ blueprint:
   input:
     label:
       name: Label
-      description: Label used to relate all temperature entities
+      description: Used to group all temperature-related entities
       default: door
       selector:
         text:
+    round_by:
+      name: Round by
+      description: Decimal precision to round each temperature value (0 = no decimals)
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 5
+          step: 1
+          mode: slider
 variables:
   label: !input label
+  round_by: !input round_by
 sensor:
   device_class: temperature
   unit_of_measurement: °F
@@ -27,14 +38,14 @@ sensor:
           | map('float') 
           | list }}
     min: >-
-      {{ (state_attr(this.entity_id, 'values') or []) | min }}
+      {{ (state_attr(this.entity_id, 'values') or []) | min | round(round_by)}}
     max: >-
-      {{ (state_attr(this.entity_id, 'values') or []) | max }}
+      {{ (state_attr(this.entity_id, 'values') or []) | max | round(round_by)}}
     average: >-
-      {{ (state_attr(this.entity_id, 'values') or []) | average }}
+      {{ (state_attr(this.entity_id, 'values') or []) | average | round(round_by)}}
     range: >-
-      {% set min = (state_attr(this.entity_id, 'min') or 0) | int  %}
-      {% set max = (state_attr(this.entity_id, 'max') or 0) | int  %}
+      {% set min = (state_attr(this.entity_id, 'min') or 0) | round(round_by)%}
+      {% set max = (state_attr(this.entity_id, 'max') or 0) | round(round_by)%}
       {{ min ~ '°F - ' ~ max ~ '°F'}}
   state: >-
-    {{ (state_attr(this.entity_id, 'average') or 0) | int }}
+    {{ (state_attr(this.entity_id, 'average') or 0) | round(round_by) }}

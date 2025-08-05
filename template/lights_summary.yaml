@@ -1,0 +1,30 @@
+blueprint:
+  name: lights_summary
+  description: Creates a binary sensor that summarizes light status, indicating how many lights are on
+  domain: template
+  source_url: https://github.com/thiagodnf/hass-blueprints/tree/main/template/lights_summary.yaml
+  author: Thiago Ferreira
+  homeassistant:
+    min_version: 2024.6.0
+  input:
+    label:
+      name: Label
+      description: Used to group all light-related entities
+      default: light
+      selector:
+        text:
+variables:
+  label: !input label
+sensor:
+  attributes:
+    lights: >-
+      {{ label_entities(label)  
+          | expand
+          | selectattr('state', 'eq', 'on')
+          | map(attribute='name') 
+          | list }}
+    count: >-
+      {{ (state_attr(this.entity_id, 'lights') or []) | count }}
+  state: >-
+    {% set count = (state_attr(this.entity_id, 'count') or 0) | int %}
+    {{ 'All Off' if count == 0 else count ~ ' on' }}

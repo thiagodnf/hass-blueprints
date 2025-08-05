@@ -16,6 +16,7 @@ blueprint:
 variables:
   label: !input label
 sensor:
+  icon: mdi:lightbulb
   attributes:
     lights: >-
       {{ label_entities(label)  

@@ -17,6 +17,7 @@ variables:
   label: !input label
 sensor:
   icon: mdi:lightbulb
+  state_class: measurement
   attributes:
     lights: >-
       {{ label_entities(label)  

@@ -24,8 +24,8 @@ sensor:
           | selectattr('state', 'eq', 'on')
           | map(attribute='name') 
           | list }}
-    count: >-
-      {{ (state_attr(this.entity_id, 'lights') or []) | count }}
+    status: >-
+      {% set count = (states(this.entity_id) or 0) | int %}
+      {{ 'All Off' if count == 0 else count ~ ' On' }}
   state: >-
-    {% set count = (state_attr(this.entity_id, 'count') or 0) | int %}
-    {{ 'All Off' if count == 0 else count ~ ' on' }}
+    {{ (state_attr(this.entity_id, 'lights') or []) | count }}

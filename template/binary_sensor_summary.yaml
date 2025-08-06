@@ -13,16 +13,29 @@ blueprint:
       default: door
       selector:
         text:
-    icon:
-      name: Icon
+    icon_on:
+      name: Icon On
       description: Choose an icon
-      default: mdi:door
+      default: mdi:door-open
+      selector:
+        icon: {}
+    icon_off:
+      name: Icon Off
+      description: Choose an icon
+      default: mdi:door-closed
       selector:
         icon: {}
 variables:
   label: !input label
+  icon_on: !input icon_on
+  icon_off: !input icon_off
 sensor:
-  icon: !input icon
+  icon: >-
+    {% if (states(this.entity_id) | int) > 0 %}
+      icon_on
+    {% else %}
+      icon_off
+    {% endif %}
   state_class: measurement
   attributes:
     entities_on: >-

@@ -30,7 +30,7 @@ variables:
   icon_on: !input icon_on
   icon_off: !input icon_off
 sensor:
-  icon_template: >-
+  icon: >-
     {% if (states(this.entity_id) | int) > 0 %}
       {{ icon_on }}
     {% else %}

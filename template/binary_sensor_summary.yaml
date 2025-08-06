@@ -30,11 +30,11 @@ variables:
   icon_on: !input icon_on
   icon_off: !input icon_off
 sensor:
-  icon: >-
+  icon_template: >-
     {% if (states(this.entity_id) | int) > 0 %}
-      icon_on
+      {{ icon_on }}
     {% else %}
-      icon_off
+      {{ icon_off }}
     {% endif %}
   state_class: measurement
   attributes:

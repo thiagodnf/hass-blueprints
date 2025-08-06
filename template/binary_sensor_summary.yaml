@@ -35,4 +35,4 @@ sensor:
       {% set count = states(this.entity_id) | int %}
       {{ 'All Closed' if count == 0 else count ~ ' Open' }}
   state: >-
-    {{ state_attr(this.entity_id, 'entities_on') | count }}
+    {{ (state_attr(this.entity_id, 'entities_on') or []) | count }}

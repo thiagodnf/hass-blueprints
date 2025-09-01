@@ -15,6 +15,7 @@ blueprint:
       name: Temperature Sensor Entity
       selector:
         entity:
+          domain: sensor
           device_class: temperature
     threshold:
       name: Temperature Threshold

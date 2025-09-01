@@ -1,0 +1,47 @@
+blueprint:
+  name: Switch Off If Cooled Down
+  description: Turn off a switch if the linked temperature sensor stays below threshold for a set time
+  domain: automation
+  input:
+    switch_entity:
+      name: Switch Entity
+      selector:
+        entity:
+          domain: switch
+    temperature_sensor_entity:
+      name: Temperature Sensor Entity
+      selector:
+        entity:
+          device_class: temperature
+    threshold:
+      name: Temperature Threshold
+      default: 72
+      selector:
+        number:
+          min: 40
+          max: 90
+          unit_of_measurement: "°F"
+          mode: box
+    duration:
+      name: Below Threshold Duration
+      default: 00:30:00
+      selector:
+        duration: {}
+
+trigger:
+  - platform: numeric_state
+    entity_id: !input temperature_sensor_entity
+    below: !input threshold
+    for: !input duration
+
+condition:
+  - condition: state
+    entity_id: !input switch_entity
+    state: "on"
+
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: !input switch_entity
+
+mode: single

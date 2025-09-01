@@ -11,25 +11,21 @@ blueprint:
       selector:
         entity:
           domain: switch
-    temperature:
-      name: Temperature Sensor
-      input:
-        name: Temperature Sensor
-        temperature_sensor_entity:
-          name: Temperature Sensor Entity
-          selector:
-            entity:
-              domain: sensor
-              device_class: temperature
-        threshold:
-          name: Temperature Threshold
-          default: 72
-          selector:
-            number:
-              min: 40
-              max: 90
-              unit_of_measurement: "°F"
-              mode: slider
+    temperature_sensor_entity:
+      name: Temperature Sensor Entity
+      selector:
+        entity:
+          domain: sensor
+          device_class: temperature
+    threshold:
+      name: Temperature Threshold
+      default: 72
+      selector:
+        number:
+          min: 40
+          max: 90
+          unit_of_measurement: "°F"
+          mode: slider
     duration:
       name: Below Threshold Duration
       default: 00:30:00

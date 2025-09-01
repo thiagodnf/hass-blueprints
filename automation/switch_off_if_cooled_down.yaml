@@ -12,6 +12,7 @@ blueprint:
         entity:
           domain: switch
     temperature:
+      name: Temperature Sensor
       input:
         name: Temperature Sensor
         temperature_sensor_entity:

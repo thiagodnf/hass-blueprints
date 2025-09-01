@@ -2,6 +2,9 @@ blueprint:
   name: Switch Off If Cooled Down
   description: Turn off a switch if the linked temperature sensor stays below threshold for a set time
   domain: automation
+  author: Thiago Ferreira
+  homeassistant:
+    min_version: 2024.6.0
   input:
     switch_entity:
       name: Switch Entity
@@ -21,7 +24,7 @@ blueprint:
           min: 40
           max: 90
           unit_of_measurement: "°F"
-          mode: box
+          mode: slider
     duration:
       name: Below Threshold Duration
       default: 00:30:00
